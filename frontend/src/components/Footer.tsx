@@ -19,14 +19,14 @@ export function Footer() {
           <SocialLink href="#" icon={Twitter} />
           <SocialLink href="#" icon={Instagram} />
         </div>
-
+{/* 
         <div className="text-center md:text-right text-sm text-slate-500">
           <p className="flex items-center justify-center md:justify-end gap-1">
             Made with <Heart size={14} className="text-red-500 fill-red-500" />{' '}
             in Pakistan
           </p>
           <p className="mt-1">© 2024 All rights reserved.</p>
-        </div>
+        </div> */}
       </div>
     </footer>;
 }

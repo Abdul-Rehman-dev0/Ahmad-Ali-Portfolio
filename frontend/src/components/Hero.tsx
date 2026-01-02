@@ -103,7 +103,7 @@ export function Hero() {
     </div>
 
     {/* Scroll Indicator */}
-    <motion.div initial={{
+    {/* <motion.div initial={{
       opacity: 0
     }} animate={{
       opacity: 1
@@ -115,6 +115,6 @@ export function Hero() {
         Scroll
       </span>
       <div className="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent" />
-    </motion.div>
+    </motion.div> */}
   </section>;
 }

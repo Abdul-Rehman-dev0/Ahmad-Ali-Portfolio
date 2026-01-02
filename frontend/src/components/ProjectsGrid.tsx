@@ -1,116 +1,167 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, ArrowUpRight } from 'lucide-react';
-const projects = [{
-  title: 'E-commerce Platform',
-  description: 'A full-featured online store with real-time inventory, Stripe payments, and admin dashboard.',
-  tags: ['Next.js', 'PostgreSQL', 'Stripe', 'Tailwind'],
-  image: 'bg-gradient-to-br from-blue-900 to-slate-900',
-  features: ['Real-time inventory', 'Secure checkout', 'Admin dashboard'],
-  links: {
-    demo: '',
-    github: '#'
+import { Eye, CheckCircle2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+export const projectsData = [
+  {
+    id: 'neural-canvas',
+    title: 'Neural Canvas',
+    description: 'A next-generation visualization tool for neural network architectures with real-time collaboration.',
+    image: '/Container.png', 
+    bannerClass: 'bg-gradient-to-br from-blue-900/20 to-purple-900/20',
+    tags: ['React', 'TypeScript', 'Three.js', 'Node.js'],
+    duration: '6 months',
+    role: 'Lead Full-Stack Developer',
+    status: 'Live',
+    users: '2.5K+',
+    overview: `Neural Canvas emerged from a critical need in the machine learning workflow: the gap between conceptual architecture design and actual implementation.`,
+    overviewSecondary: `This platform provides an intuitive visual interface where teams can collaboratively design neural network architectures.`,
+    objectives: ['Reduce development time by 80%', 'Enable real-time collaboration', 'Instant architecture validation', 'Multi-framework support'],
+    responsibilities: ['Technical architecture', 'WebGL rendering engine', 'Real-time sync system'],
+    techStack: [
+      { name: 'React', category: 'Frontend' }, { name: 'Three.js', category: 'Graphics' },
+      { name: 'Node.js', category: 'Backend' }, { name: 'WebSocket', category: 'Real-time' }
+    ],
+    features: [
+      { title: 'Real-time Sync', desc: 'WebSocket synchronization.', color: 'blue' },
+      { title: 'GPU Rendering', desc: 'WebGL pipeline optimized.', color: 'purple' }
+    ],
+    impact: [
+      { label: 'Time Saved', value: '82%', desc: 'Faster dev' },
+      { label: 'Active Users', value: '2,500+', desc: 'ML engineers' }
+    ],
+    architecture: {
+      client: 'React + WebGL', server: 'Node.js', db1: 'Redis', db2: 'PostgreSQL',
+      metrics: [{ label: 'Avg Latency', value: '24ms' }, { label: 'Uptime', value: '99.9%' }, { label: 'Throughput', value: '5K/s' }]
+    }
+  },
+  {
+    id: 'nexus-shop',
+    title: 'Nexus E-Commerce',
+    description: 'A high-performance digital marketplace with advanced filtering and secure Stripe integration.',
+    image: '/nexus-shop.png',
+    bannerClass: 'bg-gradient-to-br from-emerald-900/20 to-teal-900/20',
+    tags: ['Next.js', 'Prisma', 'Stripe', 'PostgreSQL'],
+    duration: '4 months',
+    role: 'Full Stack Architect',
+    status: 'Live',
+    users: '10K+',
+    overview: `Nexus Shop was built to handle high-traffic retail events with SSR and Edge Caching.`,
+    overviewSecondary: `The core focus was on Page Speed and a frictionless checkout experience.`,
+    objectives: ['Mobile-first checkout', 'Inventory sync', 'Dynamic pricing engine', 'Global CDN distribution'],
+    responsibilities: ['DB Schema Design', 'Payment Integration', 'Search Optimization'],
+    techStack: [
+      { name: 'Next.js', category: 'Frontend' }, { name: 'Prisma', category: 'ORM' },
+      { name: 'Stripe', category: 'Payments' }, { name: 'PostgreSQL', category: 'Database' }
+    ],
+    features: [
+      { title: 'Smart Search', desc: 'Instant filtering via Algolia.', color: 'emerald' },
+      { title: 'Secure Pay', desc: 'Stripe Elements integration.', color: 'blue' }
+    ],
+    impact: [
+      { label: 'Load Speed', value: '0.4s', desc: 'Global average' },
+      { label: 'Conversion', value: '+35%', desc: 'Sales increase' }
+    ],
+    architecture: {
+      client: 'Next.js (Edge)', server: 'Serverless', db1: 'Upstash', db2: 'Supabase',
+      metrics: [{ label: 'Checkout', value: '12s' }, { label: 'Cache Hit', value: '94%' }, { label: 'API Resp', value: '110ms' }]
+    }
+  },
+  {
+    id: 'nova-ai',
+    title: 'Nova AI Dashboard',
+    description: 'Enterprise SaaS dashboard for managing AI workflows and token usage analytics.',
+    image: '/nova-ai.png',
+    bannerClass: 'bg-gradient-to-br from-orange-900/20 to-red-900/20',
+    tags: ['React', 'FastAPI', 'Docker', 'OpenAI'],
+    duration: '3 months',
+    role: 'Backend Engineer',
+    status: 'Beta',
+    users: '500+',
+    overview: `Nova AI simplifies the complexity of monitoring multiple LLM deployments.`,
+    overviewSecondary: `Tracks token usage and provides automated budget alerts.`,
+    objectives: ['Multi-LLM monitoring', 'Cost tracking', 'Prompt versioning', 'API proxying'],
+    responsibilities: ['FastAPI Backend', 'Docker Orchestration', 'Analytics Pipeline'],
+    techStack: [
+      { name: 'React', category: 'Frontend' }, { name: 'FastAPI', category: 'Backend' },
+      { name: 'Docker', category: 'DevOps' }, { name: 'MongoDB', category: 'Database' }
+    ],
+    features: [
+      { title: 'Cost Analysis', desc: 'Token cost breakdown.', color: 'orange' },
+      { title: 'Model Proxy', desc: 'Unified API for OpenAI/Anthropic.', color: 'red' }
+    ],
+    impact: [
+      { label: 'Cost Saved', value: '25%', desc: 'Optimized usage' },
+      { label: 'Latency', value: '-40%', desc: 'Via caching' }
+    ],
+    architecture: {
+      client: 'React UI', server: 'Python FastAPI', db1: 'MongoDB', db2: 'Prometheus',
+      metrics: [{ label: 'Proxy Lag', value: '15ms' }, { label: 'Auth Time', value: '45ms' }, { label: 'Data Pull', value: '1.2s' }]
+    }
   }
-}, {
-  title: 'Task Management App',
-  description: 'Collaborative project management tool with real-time updates and team workspaces.',
-  tags: ['React', 'Firebase', 'Redux', 'DnD'],
-  image: 'bg-gradient-to-br from-emerald-900 to-slate-900',
-  features: ['Drag & drop', 'Team collaboration', 'Real-time sync'],
-  links: {
-    demo: '#',
-    github: '#'
-  }
-}, {
-  title: 'AI Content Generator',
-  description: 'SaaS application leveraging OpenAI API to generate marketing copy and blog posts.',
-  tags: ['TypeScript', 'OpenAI', 'Next.js', 'Prisma'],
-  image: 'bg-gradient-to-br from-purple-900 to-slate-900',
-  features: ['AI Integration', 'Subscription billing', 'History tracking'],
-  links: {
-    demo: '#',
-    github: '#'
-  }
-}];
+];
+
 export function ProjectsGrid() {
-  return <section id="projects" className="py-24 relative">
+  return (
+    <section id="projects" className="py-24 bg-[#000814]">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-          <div>
-            <motion.h2 initial={{
-            opacity: 0,
-            y: 20
-          }} whileInView={{
-            opacity: 1,
-            y: 0
-          }} viewport={{
-            once: true
-          }} className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Featured Projects
-            </motion.h2>
-            <p className="text-slate-400 max-w-xl">
-              A selection of projects that demonstrate my ability to solve
-              complex problems with code.
-            </p>
-          </div>
-          <a href="#" className="text-primary hover:text-white transition-colors flex items-center gap-2 group">
-            View Github{' '}
-            <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-          </a>
-        </div>
+        <motion.h2 
+          initial={{ opacity: 0, y: 20 }} 
+          whileInView={{ opacity: 1, y: 0 }} 
+          viewport={{ once: true }}
+          className="text-4xl font-bold text-white mb-12 text-center"
+        >
+          Featured Projects
+        </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => <motion.div key={index} initial={{
-          opacity: 0,
-          y: 20
-        }} whileInView={{
-          opacity: 1,
-          y: 0
-        }} viewport={{
-          once: true
-        }} transition={{
-          delay: index * 0.1
-        }} className="group relative rounded-card-lg overflow-hidden border border-slate-800/50 bg-slate-900/50 backdrop-blur-sm hover:border-primary/50 transition-colors duration-500">
-              {/* Project Preview Placeholder */}
-              <div className={`h-48 w-full ${project.image} relative overflow-hidden`}>
-                <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-slate-900/0 transition-colors duration-500" />
-
-                {/* Overlay on Hover */}
-                <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                  <a href={project.links.demo} className="p-3 rounded-full bg-primary text-white hover:scale-110 transition-transform shadow-glow" title="View Live">
-                    <ExternalLink size={20} />
-                  </a>
-                  <a href={project.links.github} className="p-3 rounded-full bg-slate-800 text-white hover:scale-110 transition-transform border border-slate-700" title="View Code">
-                    <Github size={20} />
-                  </a>
+          {projectsData.map((project, idx) => (
+            <motion.div 
+              key={project.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1 }}
+              className="group bg-slate-900/40 rounded-xl overflow-hidden border border-slate-800 hover:border-blue-500/50 transition-all flex flex-col"
+            >
+              <div className="h-52 bg-slate-800 relative overflow-hidden">
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/70 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100 z-10">
+                   <Link to={`/project/${project.id}`} className="bg-blue-600 text-white px-6 py-2 rounded-full flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-all shadow-xl">
+                     <Eye size={18} /> View Details
+                   </Link>
+                </div>
+                <div className="w-full h-full flex items-center justify-center text-slate-600 font-medium">
+                  {project.title} Preview
                 </div>
               </div>
 
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-2">
-                  {project.title}
-                </h3>
-                <p className="text-slate-400 text-sm mb-4 line-clamp-2">
-                  {project.description}
-                </p>
+              <div className="p-6 flex-1 flex flex-col">
+                <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
+                <p className="text-slate-400 text-sm line-clamp-2 mb-4">{project.description}</p>
 
-                <div className="mb-6">
-                  <ul className="space-y-1">
-                    {project.features.map((feature, i) => <li key={i} className="flex items-center text-xs text-slate-500">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary mr-2" />
-                        {feature}
-                      </li>)}
-                  </ul>
+                
+                <div className="space-y-2 mb-6">
+                  {project.objectives.slice(0, 3).map((point, i) => (
+                    <div key={i} className="flex items-center gap-2 text-[13px] text-slate-300">
+                      <CheckCircle2 size={14} className="text-blue-500 flex-shrink-0" />
+                      <span className="truncate">{point}</span>
+                    </div>
+                  ))}
                 </div>
 
-                <div className="flex flex-wrap gap-2 mt-auto">
-                  {project.tags.map(tag => <span key={tag} className="px-2 py-1 text-xs rounded bg-slate-800/50 text-slate-300 border border-slate-700/50">
+                <div className="mt-auto flex flex-wrap gap-2 pt-4 border-t border-white/5">
+                  {project.tags.slice(0, 3).map(tag => (
+                    <span key={tag} className="text-[10px] uppercase tracking-wider px-2 py-1 bg-blue-500/10 text-blue-400 rounded border border-blue-500/20">
                       {tag}
-                    </span>)}
+                    </span>
+                  ))}
                 </div>
               </div>
-            </motion.div>)}
+            </motion.div>
+          ))}
         </div>
       </div>
-    </section>;
+    </section>
+  );
 }

@@ -72,6 +72,7 @@ export function ContactForm() {
                   <CheckCircle2 className="text-green-500 w-12 h-12" />
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-2">Success!</h3>
+                
                 <button onClick={() => setShowSuccess(false)} className="bg-white text-black px-10 py-3 rounded-full font-bold">Close</button>
               </motion.div>
             )}

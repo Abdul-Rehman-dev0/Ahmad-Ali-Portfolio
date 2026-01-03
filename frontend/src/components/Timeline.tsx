@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Briefcase, Calendar } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-// Data ko export kar rahe hain taake detail page ise read kar sake
+
 export const experiences = [
   {
     id: 'techflow',
@@ -18,6 +18,14 @@ export const experiences = [
       { label: 'Active Users', value: '500K' },
       { label: 'Uptime', value: '99.9%' },
       { label: 'Cost Savings', value: '$12k/mo' }
+    ],
+    // SaaS Architecture (Microservices)
+    architecture: [
+      { id: 'tf-1', label: 'React UI', icon: 'globe', color: 'text-blue-400' },
+      { id: 'tf-2', label: 'AWS ALB', icon: 'layers', color: 'text-purple-400' },
+      { id: 'tf-3', label: 'Node API', icon: 'server', color: 'text-green-400' },
+      { id: 'tf-4', label: 'K8s Cluster', icon: 'shield', color: 'text-cyan-400' },
+      { id: 'tf-5', label: 'PostgreSQL', icon: 'database', color: 'text-yellow-400' }
     ]
   },
   {
@@ -33,6 +41,14 @@ export const experiences = [
       { label: 'Load Time', value: '-1.5s' },
       { label: 'SEO Score', value: '98/100' },
       { label: 'Transactions', value: '1M+' }
+    ],
+    // E-commerce Architecture
+    architecture: [
+      { id: 'cd-1', label: 'Next.js', icon: 'globe', color: 'text-sky-400' },
+      { id: 'cd-2', label: 'GraphQL', icon: 'zap', color: 'text-pink-400' },
+      { id: 'cd-3', label: 'Shopify API', icon: 'layers', color: 'text-green-500' },
+      { id: 'cd-4', label: 'Redis', icon: 'zap', color: 'text-red-400' },
+      { id: 'cd-5', label: 'Inventory DB', icon: 'database', color: 'text-indigo-400' }
     ]
   },
   {
@@ -48,6 +64,13 @@ export const experiences = [
       { label: 'Security', value: '100%' },
       { label: 'API Speed', value: '120ms' },
       { label: 'Retension', value: '65%' }
+    ],
+    // Fintech/Firebase Architecture
+    architecture: [
+      { id: 'su-1', label: 'Mobile App', icon: 'layout', color: 'text-blue-500' },
+      { id: 'su-2', label: 'Firebase Auth', icon: 'shield', color: 'text-orange-400' },
+      { id: 'su-3', label: 'Cloud Funcs', icon: 'server', color: 'text-yellow-500' },
+      { id: 'su-4', label: 'Firestore', icon: 'database', color: 'text-amber-500' }
     ]
   }
 ];

@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Calendar, Briefcase, CheckCircle, Code2, Database, Globe, Server, Terminal, Zap, Layers, Users } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { experiences } from '../components/Timeline';
 
-// Components imports (Assuming they exist in your components folder)
+// Components imports
 import { TimelineHero } from '../components/TimelineHero';
-import { TimelineSpine, TimelineNode } from '../components/TimelineSpine';
 import { ExperienceCard } from '../components/ExperienceCard';
 import { ArchitectureDiagram } from '../components/ArchitectureDiagram';
 import { TechBadge } from '../components/TechBadge';
@@ -20,17 +19,36 @@ export function ExperiencePage() {
     window.scrollTo(0, 0);
   }, [id]);
 
-  if (!exp) return <div className="text-white p-20 text-center">Experience Not Found</div>;
+  if (!exp) {
+    return (
+      <div className="min-h-screen bg-[#000814] flex items-center justify-center text-white p-20 text-center">
+        <div>
+          <h1 className="text-4xl font-bold mb-4">Experience Not Found</h1>
+          <Link to="/experience" className="text-blue-500 hover:underline">Return to Portfolio</Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#000814] text-gray-200 flex flex-col">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-[#000814]/80 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center">
-          <Link to="/#experience" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
-            <ArrowLeft size={20} />
-            <span>Back to Timeline</span>
+      <nav className="fixed top-0 left-0 right-0 z-[100] border-b border-white/5 bg-[#000814]/60 backdrop-blur-xl">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          <Link
+            to="/experience"
+            className="group flex items-center gap-3 px-4 py-2 rounded-xl bg-white/5 border border-white/10 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300"
+          >
+            <div className="p-1 rounded-lg bg-white/5 group-hover:bg-blue-500/20 group-hover:text-blue-400 transition-colors">
+              <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+            </div>
+            <span className="text-sm font-semibold tracking-wide text-gray-300 group-hover:text-white">
+              Back to Portfolio
+            </span>
           </Link>
+          <div className="hidden sm:flex items-center gap-4">
+            <span className="text-[10px] font-mono text-gray-500 uppercase tracking-[0.2em]">Ahmad Ali</span>
+            <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></div>
+          </div>
         </div>
       </nav>
 
@@ -38,69 +56,61 @@ export function ExperiencePage() {
         <div className="relative z-10 max-w-7xl mx-auto px-6">
           <TimelineHero company={exp.company} role={exp.role} period={exp.period} />
 
-          <div className="relative pb-24">
-            <TimelineSpine />
+          {/* Main Timeline Wrapper */}
+          <div className="relative pb-24 mt-20 md:max-w-6xl mx-auto">
+            
+            {/* 1. Vertical Line - Starts from the middle of the first dot */}
+            <div className="absolute left-[165px] top-[25px] bottom-0 w-[2px] bg-gradient-to-b from-blue-500 via-blue-500/30 to-transparent hidden md:block z-0" />
 
-            <div className="space-y-32">
-              {/* 1. Overview Section */}
-              <section className="relative grid md:grid-cols-[20%_1fr] gap-8">
-                <TimelineNode active />
-                <div className="hidden md:block text-right pr-8 pt-2">
-                  <span className="text-blue-500 font-mono text-lg font-bold">01</span>
-                  <h3 className="text-white font-bold mt-1 tracking-wide uppercase text-xs">Overview</h3>
-                </div>
-                <ExperienceCard title="Role Overview">
-                  <p className="text-lg text-gray-300 leading-relaxed">{exp.fullOverview}</p>
-                </ExperienceCard>
-              </section>
+            <div className="space-y-28">
+              {[
+                { num: '01', label: 'Overview', content: (
+                  <ExperienceCard title="Role Overview">
+                    <p className="text-lg text-gray-300 leading-relaxed">{exp.fullOverview}</p>
+                  </ExperienceCard>
+                )},
+                { num: '02', label: 'Impact', content: (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+                    {exp.metrics.map((metric, i) => (
+                      <div key={i} className="bg-white/[0.03] border border-white/10 p-5 rounded-xl hover:border-blue-500/30 transition-all">
+                        <div className="text-2xl font-bold text-blue-400">{metric.value}</div>
+                        <div className="text-xs text-gray-500 uppercase tracking-widest">{metric.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                )},
+                { num: '03', label: 'Tech Stack', content: (
+                  <div className="flex flex-wrap gap-3">
+                    {exp.tech.map((t, i) => (
+                      <TechBadge key={t} delay={i * 0.05}>{t}</TechBadge>
+                    ))}
+                  </div>
+                )},
+                { num: '04', label: 'Architecture', content: (
+                  <div className="bg-slate-900/20 border border-white/5 rounded-2xl p-4 md:p-6 w-full">
+                    <ArchitectureDiagram data={exp.architecture} />
+                  </div>
+                )}
+              ].map((item, index) => (
+                <section key={index} className="relative grid grid-cols-1 md:grid-cols-[150px_1fr] gap-8 md:gap-12 items-start">
+                  
+                  {/* Left Side: Number & Label */}
+                  <div className="text-left md:text-right pt-1 pr-4">
+                    <span className="text-blue-500 font-mono text-4xl font-black block leading-none mb-2">{item.num}</span>
+                    <span className="text-white font-bold uppercase text-[12px] tracking-widest opacity-80">{item.label}</span>
+                  </div>
 
-              {/* 2. Impact Section */}
-              <section className="relative grid md:grid-cols-[20%_1fr] gap-8">
-                <TimelineNode active />
-                <div className="hidden md:block text-right pr-8 pt-2">
-                  <span className="text-blue-500 font-mono text-lg font-bold">02</span>
-                  <h3 className="text-white font-bold mt-1 tracking-wide uppercase text-xs">Impact</h3>
-                </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {exp.metrics.map((metric, i) => (
-                    <motion.div 
-                      key={i}
-                      initial={{ scale: 0.9, opacity: 0 }}
-                      whileInView={{ scale: 1, opacity: 1 }}
-                      className="bg-slate-900/50 border border-white/5 p-6 rounded-xl text-center"
-                    >
-                      <div className="text-3xl font-bold text-blue-400 mb-2">{metric.value}</div>
-                      <div className="text-sm text-gray-400">{metric.label}</div>
-                    </motion.div>
-                  ))}
-                </div>
-              </section>
+                  {/* Solid Dot exactly on the line */}
+                  <div className="hidden md:block absolute left-[165px] top-[25px] -translate-x-1/2 -translate-y-1/2 z-10">
+                    <div className="w-3.5 h-3.5 rounded-full bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.8)] border-2 border-[#000814]" />
+                  </div>
 
-              {/* 3. Tech Stack Section */}
-              <section className="relative grid md:grid-cols-[20%_1fr] gap-8">
-                <TimelineNode active />
-                <div className="hidden md:block text-right pr-8 pt-2">
-                  <span className="text-blue-500 font-mono text-lg font-bold">03</span>
-                  <h3 className="text-white font-bold mt-1 tracking-wide uppercase text-xs">Tech Stack</h3>
-                </div>
-                <div className="flex flex-wrap gap-3">
-                  {exp.tech.map((t, i) => (
-                    <TechBadge key={t} delay={i * 0.1}>{t}</TechBadge>
-                  ))}
-                </div>
-              </section>
-
-              {/* 4. Architecture Section */}
-              <section className="relative grid md:grid-cols-[20%_1fr] gap-8">
-                <TimelineNode active />
-                <div className="hidden md:block text-right pr-8 pt-2">
-                  <span className="text-blue-500 font-mono text-lg font-bold">04</span>
-                  <h3 className="text-white font-bold mt-1 tracking-wide uppercase text-xs">Architecture</h3>
-                </div>
-                <div className="space-y-6">
-                   <ArchitectureDiagram />
-                </div>
-              </section>
+                  {/* Right Side: Content */}
+                  <div className="w-full pl-4 md:pl-6">
+                    {item.content}
+                  </div>
+                </section>
+              ))}
             </div>
           </div>
         </div>

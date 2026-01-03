@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Eye, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+// Data ko export kar rahe hain taake Details page access kar sake
 export const projectsData = [
   {
     id: 'neural-canvas',
@@ -15,7 +16,7 @@ export const projectsData = [
     role: 'Lead Full-Stack Developer',
     status: 'Live',
     users: '2.5K+',
-    overview: `Neural Canvas emerged from a critical need in the machine learning workflow: the gap between conceptual architecture design and actual implementation.`,
+    overview: `Neural Canvas emerged from a critical need in the machine learning workflow.`,
     overviewSecondary: `This platform provides an intuitive visual interface where teams can collaboratively design neural network architectures.`,
     objectives: ['Reduce development time by 80%', 'Enable real-time collaboration', 'Instant architecture validation', 'Multi-framework support'],
     responsibilities: ['Technical architecture', 'WebGL rendering engine', 'Real-time sync system'],
@@ -125,14 +126,16 @@ export function ProjectsGrid() {
               transition={{ delay: idx * 0.1 }}
               className="group bg-slate-900/40 rounded-xl overflow-hidden border border-slate-800 hover:border-blue-500/50 transition-all flex flex-col"
             >
-              <div className="h-52 bg-slate-800 relative overflow-hidden">
+              <div className="h-52 relative overflow-hidden bg-slate-800">
+                <img 
+                  src={project.image} 
+                  alt={project.title} 
+                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" 
+                />
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/70 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100 z-10">
                    <Link to={`/project/${project.id}`} className="bg-blue-600 text-white px-6 py-2 rounded-full flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-all shadow-xl">
                      <Eye size={18} /> View Details
                    </Link>
-                </div>
-                <div className="w-full h-full flex items-center justify-center text-slate-600 font-medium">
-                  {project.title} Preview
                 </div>
               </div>
 
@@ -140,7 +143,6 @@ export function ProjectsGrid() {
                 <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
                 <p className="text-slate-400 text-sm line-clamp-2 mb-4">{project.description}</p>
 
-                
                 <div className="space-y-2 mb-6">
                   {project.objectives.slice(0, 3).map((point, i) => (
                     <div key={i} className="flex items-center gap-2 text-[13px] text-slate-300">
@@ -151,7 +153,7 @@ export function ProjectsGrid() {
                 </div>
 
                 <div className="mt-auto flex flex-wrap gap-2 pt-4 border-t border-white/5">
-                  {project.tags.slice(0, 3).map(tag => (
+                  {project.tags.map(tag => (
                     <span key={tag} className="text-[10px] uppercase tracking-wider px-2 py-1 bg-blue-500/10 text-blue-400 rounded border border-blue-500/20">
                       {tag}
                     </span>
